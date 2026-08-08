@@ -13,7 +13,7 @@
         return;
       }
     
-      const response = await fetch("http://localhost:3000/api/test", {
+      const response = await fetch("https://connectmedia.onrender.com/api/test", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

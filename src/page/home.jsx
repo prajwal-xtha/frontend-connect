@@ -18,7 +18,7 @@ function Home() {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/", {
+      const response = await fetch("https://connectmedia.onrender.com/api/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +54,7 @@ function Home() {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/feed/${postId}`,
+        `hhttps://connectmedia.onrender.com/api/feed/${postId}`,
         {
           method: "PUT",
           headers: {

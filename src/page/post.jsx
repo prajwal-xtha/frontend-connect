@@ -17,7 +17,7 @@ console.log(token);
     }
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/api/post", {
+      const response = await fetch("https://connectmedia.onrender.com/api/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

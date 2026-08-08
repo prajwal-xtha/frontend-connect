@@ -10,7 +10,7 @@ function Profile(){
       return;
     }
     try {
-      const response = await fetch("http://localhost:3000/api/profile", {
+      const response = await fetch("https://connectmedia.onrender.com/api/profile", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

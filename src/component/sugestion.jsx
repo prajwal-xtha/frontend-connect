@@ -12,7 +12,7 @@ function Suggestion(){
         return;
       }
         try {
-          const response = await fetch("http://localhost:3000/api/sug", {
+          const response = await fetch("https://connectmedia.onrender.com/api/sug", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
