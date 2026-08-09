@@ -5,12 +5,12 @@ function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const backend = import.meta.env.VITE_production;
   const navigate = useNavigate();
   const handleRegister = async (e) => {
 
     e.preventDefault();
-    const response = await fetch("https://connectmedia.onrender.com/api/register", {
+    const response = await fetch(`${backend}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

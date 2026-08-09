@@ -3,6 +3,7 @@
 
   function Test() {
     const [username, setusername] = useState("");
+    const backend = import.meta.env.VITE_production;
     const authentication = async () => {
       const token = localStorage.getItem("token");
     
@@ -13,7 +14,7 @@
         return;
       }
     
-      const response = await fetch("https://connectmedia.onrender.com/api/test", {
+      const response = await fetch(`${backend}/api/test`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

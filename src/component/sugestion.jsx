@@ -1,18 +1,24 @@
 import { useEffect,useState } from "react";
 import { useAuth } from "../storage/auth";
+import React from 'react'
+import { Cloudinary } from '@cloudinary/url-gen';
+import { auto } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { AdvancedImage } from '@cloudinary/react';
 
 function Suggestion(){
 
     const [suggestion,setsuggestion]=useState([])
     const [user,setuser]=useState([])
      const { token } = useAuth();
+     const backend = import.meta.env.VITE_production;
     const handlesug =async (e) =>{
       if (!token) {
         console.log("No token found in localStorage");
         return;
       }
         try {
-          const response = await fetch("https://connectmedia.onrender.com/api/sug", {
+          const response = await fetch(`${backend}/sug`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -39,19 +45,7 @@ handlesug();
 },[])
 
     return(<>
-        {/* <div className="w-80 bg-gray-50 rounded-2xl shadow-md p-4 border border-gray-200"> */}
-        {/* <div className="flex items-center gap-4">
-        <img
-          src="https://imgs.search.brave.com/dCmJ2xhaBW6NvjCS74d7jzg7oaUEI3iWzEkDGdN3wUs/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4u/aWNvbnNjb3V0LmNv/bS9pY29uL2ZyZWUv/cG5nLTI1Ni9mcmVl/LWdvb2dsZS1pY29u/LXN2Zy1kb3dubG9h/ZC1wbmctMTU5NzU1/OS5wbmc_Zj13ZWJw/Jnc9MTI4"
-          alt="hello"
-          srcSet=""
-          className="w-12 h-12 rounded-full object-cover border-2 border-gray-200"
-        />
 
-        <p className="h-15 flex items-center text-gray-800 font-medium text-sm">
-          {user.username}
-        </p>
-      </div> */}
       {user.map((u) => (
   <div key={u._id}>
     <h1>{u.username}</h1>

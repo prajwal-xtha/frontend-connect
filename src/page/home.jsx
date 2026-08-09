@@ -1,5 +1,4 @@
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faUser } from "@fortawesome/free-solid-svg-icons";
+
 import { useEffect, useState } from "react";
 
 import { useAuth } from "../storage/auth";
@@ -10,15 +9,17 @@ function Home() {
   const [posts, setPosts] = useState([]);
   const [Likes, setLikes] = useState([]);
   const { token, setToken } = useAuth();
-
+  const backend = import.meta.env.VITE_production;
+  
   const authentication = async () => {
     if (!token) {
       console.log("No token found in localStorage");
       return;
     }
-
+    
     try {
-      const response = await fetch("https://connectmedia.onrender.com/api/", {
+      console.log(backend)
+      const response = await fetch(`${backend}/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +55,7 @@ function Home() {
 
     try {
       const response = await fetch(
-        `hhttps://connectmedia.onrender.com/api/feed/${postId}`,
+        `${backend}/feed/${postId}`,
         {
           method: "PUT",
           headers: {

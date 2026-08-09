@@ -1,19 +1,20 @@
+
+// require('dotenv').config()
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../storage/auth";
-
+const backend = import.meta.env.VITE_production;
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
   const {storeTokenInLS}=useAuth()
-
+  
   const handleLogin = async (e) => {
     e.preventDefault();
-
+console.log(backend)
     try {
-      const response = await fetch("https://connectmedia.onrender.com/api/login", {
+      const response = await fetch(`${backend}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

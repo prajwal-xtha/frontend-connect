@@ -3,9 +3,18 @@ import { useNavigate } from "react-router-dom";
 
 function Post() {
   // const [postuser, setpostuser] = useState("");
-  const [posturl, setposturl] = useState("");
-  const [postcaption, setpostcaption] = useState("");
+  // const [posturl, setposturl] = useState("");
+  // const [postcaption, setpostcaption] = useState("");
+  
+  const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null);
+  const [postcaption, setPostcaption] = useState("");
+
+
+
+
   const navigate = useNavigate();
+  const backend = import.meta.env.VITE_production;
 
   const handlepost =async (e) =>{
     const token = localStorage.getItem("token");
@@ -16,17 +25,21 @@ console.log(token);
       return;
     }
     e.preventDefault();
+
+    setLoading(true);
+    const formData = new FormData();
+
+  formData.append("image", image);
+  formData.append("postcaption", postcaption);
+
     try {
-      const response = await fetch("https://connectmedia.onrender.com/api/post", {
+      const response = await fetch(`${backend}/post`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          // "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          posturl,
-          postcaption,
-        }),
+        body:formData,
       });
 
       const data = await response.json();
@@ -44,6 +57,8 @@ console.log(token);
     } catch (error) {
       console.error(error);
       alert("Server Error");
+    }finally {
+      setLoading(false);
     }
 
 
@@ -66,12 +81,12 @@ console.log(token);
               Post URL
             </label>
             <input
-              type="text"
-              name="posturl"
-              value={posturl}
-              onChange={(e) => setposturl(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg bg-zinc-900 text-white border border-zinc-600 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-            />
+  type="file"
+  name="image"
+  accept="image/*"
+  onChange={(e) => setImage(e.target.files[0])}
+  className="w-full px-4 py-3 rounded-lg bg-zinc-900 text-white border border-zinc-600 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+/>
               
             {/* <input type="file" /> */}
           </div>
@@ -85,13 +100,14 @@ console.log(token);
               type="text"
               name="postCaption"
               value={postcaption}
-              onChange={(e) => setpostcaption(e.target.value)}
+              onChange={(e) => setPostcaption(e.target.value)}
               className="w-full px-4 py-3 rounded-lg bg-zinc-900 text-white border border-zinc-600 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <button
             type="submit"
+            disabled={loading}
             className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-white font-semibold py-3 rounded-lg"
           >
             Create Post
