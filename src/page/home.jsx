@@ -124,9 +124,9 @@ function Home() {
         </div>
 
         {/* Suggestion Box */}
-        <div className="fixed top-18 right-8 w-80 bg-white rounded-2xl shadow-lg border border-gray-200 p-5">
-          <Suggestion />
-        </div>
+        <div className="hidden md:block fixed top-18 right-8 w-80 bg-white rounded-2xl shadow-lg border border-gray-200 p-5">
+  <Suggestion />
+</div>
       </div>
     </>
   );
