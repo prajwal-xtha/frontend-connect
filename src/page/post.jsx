@@ -39,7 +39,7 @@ console.log(token);
           // "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(formData)
+        body:formData,
       });
 
       const data = await response.json();
